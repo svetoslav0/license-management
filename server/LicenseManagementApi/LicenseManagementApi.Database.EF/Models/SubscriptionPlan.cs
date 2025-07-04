@@ -3,22 +3,17 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("user")]
-    public class User
+    [Table("plan")]
+    public class SubscriptionPlan
     {
         [Key]
         [Column("id")]
         public int Id { get; set; }
 
-        [Required]
-        [Column("username")]
-        public string Username { get; set; }
-
-        [Required]
         [Column("name")]
         public string Name { get; set; }
 
-        [Column("has_license")]
-        public bool HasLicense { get; set; } = false;
+        [Column("limit")]
+        public int SeatLimit { get; set; }
     }
 }

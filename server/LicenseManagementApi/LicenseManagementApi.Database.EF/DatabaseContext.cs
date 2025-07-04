@@ -10,6 +10,8 @@
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
+
         public string DbPath { get; set; }
 
         public DatabaseContext()
