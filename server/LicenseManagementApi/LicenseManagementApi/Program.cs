@@ -1,4 +1,5 @@
 using LicenseManagementApi.Database.EF;
+using LicenseManagementApi.Database.EF.Models;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,17 @@ using (IServiceScope scope = app.Services.CreateScope())
 {
     DatabaseContext databaseContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
     databaseContext.Database.Migrate();
+
+    if (!databaseContext.SubscriptionPlans.Any())
+    {
+        databaseContext.SubscriptionPlans.AddRange(
+            new SubscriptionPlan { Id = 1, Name = "basic", SeatLimit = 5 },
+            new SubscriptionPlan { Id = 2, Name = "pro", SeatLimit = 25 },
+            new SubscriptionPlan { Id = 3, Name = "enterprise", SeatLimit = 100 }
+        );
+    }
+
+    databaseContext.SaveChanges();
 }
 
 // Configure the HTTP request pipeline.
