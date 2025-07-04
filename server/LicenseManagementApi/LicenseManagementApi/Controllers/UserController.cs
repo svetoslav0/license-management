@@ -1,7 +1,7 @@
 ﻿namespace LicenseManagementApi.Controllers
 {
-    using LicenseManagementApi.Database.EF;
-    using LicenseManagementApi.Database.EF.Models;
+    using LicenseManagementApi.Models.ParameterModels;
+    using LicenseManagementApi.Services;
 
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,25 +9,19 @@
     [Route("[controller]")]
     public class UserController : Controller
     {
-        private readonly DatabaseContext databaseContext;
+        private readonly UserUnitOfWork userUnitOfWork;
 
-        public UserController(DatabaseContext databaseContext)
+        public UserController(UserUnitOfWork userUnitOfWork)
         {
-            this.databaseContext = databaseContext;
+            this.userUnitOfWork = userUnitOfWork;
         }
 
-        [HttpGet("create")]
-        public async Task<IActionResult> Index()
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] CreateUserParameters parameters)
         {
-            User user = new User
-            {
-                Id = 1,
-                Name = "Test",
-                Username = "Test"
-            };
+            parameters.Validate();
 
-            this.databaseContext.Users.Add(user);
-            await this.databaseContext.SaveChangesAsync();
+            await this.userUnitOfWork.SaveUserAsync(parameters);
 
             return Ok("okay");
         }

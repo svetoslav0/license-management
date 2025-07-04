@@ -1,5 +1,6 @@
 using LicenseManagementApi.Database.EF;
 using LicenseManagementApi.Database.EF.Models;
+using LicenseManagementApi.Services;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +33,8 @@ using (IServiceScope scope = app.Services.CreateScope())
 
     databaseContext.SaveChanges();
 }
+
+builder.Services.AddSingleton<UserUnitOfWork>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

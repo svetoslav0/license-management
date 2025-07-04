@@ -6,6 +6,12 @@
     [Table("user")]
     public class User
     {
+        public User(string username, string name)
+        {
+            this.Username = username;
+            this.Name = name;
+        }
+
         [Key]
         [Column("id")]
         public int Id { get; set; }
