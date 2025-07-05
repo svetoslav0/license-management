@@ -22,12 +22,8 @@
         [HttpPost("assign")]
         public IActionResult Assign([FromForm(Name = "user_id")] int userId)
         {
-            // todo: validations
             this.planValidator.ValidateOnLicenseAssign(userId);
-            this.userValidator.ValidateUserExistanceBy(userId);
-            // does the user have license already?
-            // does the current plan allow move licenses?
-
+            
             this.userUnitOfWork.UpdateLicenseStatus(userId, shouldHaveLicense: true);
 
             return this.BuildSuccessResponseMessage("License successfully assigned.");
@@ -36,11 +32,8 @@
         [HttpPost("unassign")]
         public IActionResult Unassign([FromForm(Name = "user_id")] int userId)
         {
-            // todo: validations
             this.planValidator.ValidateOnLicenseUnassign(userId);
-            this.userValidator.ValidateUserExistanceBy(userId);
-            // does the user have license already?
-
+            
             this.userUnitOfWork.UpdateLicenseStatus(userId, shouldHaveLicense: false);
 
             return this.BuildSuccessResponseMessage("License successfully removed.");

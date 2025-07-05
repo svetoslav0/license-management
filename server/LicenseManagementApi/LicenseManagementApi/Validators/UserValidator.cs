@@ -19,16 +19,6 @@
             this.ValidateName(parameters.Name);
         }
 
-        public void ValidateUserExistanceBy(int userId)
-        {
-            User user = this.unitOfWork.GetUserBy(userId);
-
-            if (user == default)
-            {
-                throw new BadHttpRequestException($"User does not exist.");
-            }
-        }
-
         private void ValidateUsername(string username)
         {
             if (string.IsNullOrEmpty(username))

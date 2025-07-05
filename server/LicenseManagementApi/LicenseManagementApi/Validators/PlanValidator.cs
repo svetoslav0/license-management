@@ -45,18 +45,34 @@
         {
             this.ValidateUserExistanceBy(userId);
 
-            // todo: more validations:
-            // does the user have license already?
-            // does the current plan allow move licenses?
+            User user = this.userUnitOfWork.GetUserBy(userId);
 
+            if (user.HasLicense)
+            {
+                throw new BadHttpRequestException("User already has license assigned.");
+            }
+
+            Subscription subscription = this.planUnitOfWork.GetCurrentSubscription();
+            
+            int limit = subscription.Plan.SeatLimit;
+            int licensesCount = this.userUnitOfWork.GetUsersWithLicenseCount();
+
+            if (licensesCount + 1 > limit)
+            {
+                throw new BadHttpRequestException("Seat limit reached, cannot assign more licenses.");
+            }
         }
 
         public void ValidateOnLicenseUnassign(int userId)
         {
             this.ValidateUserExistanceBy(userId);
 
-            // todo: more validations:
-            // does the user have license already?
+            User user = this.userUnitOfWork.GetUserBy(userId);
+
+            if (user.HasLicense == false)
+            {
+                throw new BadHttpRequestException("User has no license assigned.");
+            }
         }
 
         private void ValidateUserExistanceBy(int userId)
