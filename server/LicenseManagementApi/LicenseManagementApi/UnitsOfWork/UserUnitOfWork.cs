@@ -22,6 +22,11 @@
             await this.databaseContext.SaveChangesAsync();
         }
 
+        public List<User> ListUsers()
+        {
+            List<User> users = this.databaseContext.Users.ToList();
 
+            return users;
+        }
     }
 }
