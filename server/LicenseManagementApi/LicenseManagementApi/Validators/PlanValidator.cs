@@ -40,5 +40,33 @@
                 throw new BadHttpRequestException($"Already subscribed to {desiredPlan.Name} plan.");
             }
         }
+
+        public void ValidateOnLicenseAssign(int userId)
+        {
+            this.ValidateUserExistanceBy(userId);
+
+            // todo: more validations:
+            // does the user have license already?
+            // does the current plan allow move licenses?
+
+        }
+
+        public void ValidateOnLicenseUnassign(int userId)
+        {
+            this.ValidateUserExistanceBy(userId);
+
+            // todo: more validations:
+            // does the user have license already?
+        }
+
+        private void ValidateUserExistanceBy(int userId)
+        {
+            User user = this.userUnitOfWork.GetUserBy(userId);
+
+            if (user == default)
+            {
+                throw new BadHttpRequestException($"User does not exist.");
+            }
+        }
     }
 }
