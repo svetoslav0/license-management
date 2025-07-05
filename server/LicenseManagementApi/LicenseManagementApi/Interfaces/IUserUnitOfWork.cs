@@ -10,5 +10,7 @@
         public List<User> ListUsers();
 
         public User GetUserByUsername(string username);
+
+        public int GetUsersWithLicenseCount();
     }
 }

@@ -20,7 +20,9 @@ builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddScoped<IUserUnitOfWork, UserUnitOfWork>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
+
 builder.Services.AddSingleton<IUserResponseBuilder, UserResponseBuilder>();
+builder.Services.AddSingleton<IPlanResponseBuilder, PlanResponseBuilder>();
 
 var app = builder.Build();
 

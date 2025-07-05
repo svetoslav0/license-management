@@ -35,5 +35,13 @@
 
             return user;
         }
+
+        public int GetUsersWithLicenseCount()
+        {
+            return this.databaseContext
+                .Users
+                .Where(x => x.HasLicense == true)
+                .Count();
+        }
     }
 }
