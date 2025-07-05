@@ -2,9 +2,10 @@
 {
     using LicenseManagementApi.Database.EF;
     using LicenseManagementApi.Database.EF.Models;
+    using LicenseManagementApi.Interfaces;
     using LicenseManagementApi.Models.ParameterModels;
 
-    public class UserUnitOfWork
+    public class UserUnitOfWork : IUserUnitOfWork
     {
         private readonly DatabaseContext databaseContext;
 
@@ -20,5 +21,7 @@
             this.databaseContext.Users.Add(user);
             await this.databaseContext.SaveChangesAsync();
         }
+
+
     }
 }

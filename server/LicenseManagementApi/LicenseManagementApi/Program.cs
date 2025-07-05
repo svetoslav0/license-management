@@ -1,6 +1,6 @@
 using LicenseManagementApi.Database.EF;
 using LicenseManagementApi.Database.EF.Models;
-using LicenseManagementApi.Services;
+using LicenseManagementApi.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DatabaseContext>();
 
-builder.Services.AddScoped<UserUnitOfWork>();
+builder.Services.AddScoped<IUserUnitOfWork>();
 
 var app = builder.Build();
 

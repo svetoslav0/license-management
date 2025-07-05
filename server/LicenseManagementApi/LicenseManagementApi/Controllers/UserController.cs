@@ -1,7 +1,7 @@
 ﻿namespace LicenseManagementApi.Controllers
 {
+    using LicenseManagementApi.Interfaces;
     using LicenseManagementApi.Models.ParameterModels;
-    using LicenseManagementApi.Services;
 
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@
     [Route("[controller]")]
     public class UserController : AbstractController
     {
-        private readonly UserUnitOfWork userUnitOfWork;
+        private readonly IUserUnitOfWork userUnitOfWork;
 
-        public UserController(UserUnitOfWork userUnitOfWork)
+        public UserController(IUserUnitOfWork userUnitOfWork)
         {
             this.userUnitOfWork = userUnitOfWork;
         }
