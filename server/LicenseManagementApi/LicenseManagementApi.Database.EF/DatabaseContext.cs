@@ -12,6 +12,8 @@
 
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
 
+        public DbSet<Subscription> Subscription { get; set; }
+
         public string DbPath { get; set; }
 
         public DatabaseContext()
@@ -23,5 +25,17 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite($"Data Source={this.DbPath}");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(x => x.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<Subscription>()
+                .HasOne<SubscriptionPlan>(x => x.Plan)
+                .WithOne()
+                .HasForeignKey<Subscription>(x => x.PlanId);
+        }
     }
 }
