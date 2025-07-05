@@ -7,7 +7,7 @@
 
     [ApiController]
     [Route("[controller]")]
-    public class UserController : Controller
+    public class UserController : AbstractController
     {
         private readonly UserUnitOfWork userUnitOfWork;
 
@@ -23,7 +23,7 @@
 
             await this.userUnitOfWork.SaveUserAsync(parameters);
 
-            return Ok("okay");
+            return this.BuildSuccessResponseMessage("User was successfully created!");
         }
     }
 }

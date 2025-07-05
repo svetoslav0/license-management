@@ -15,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DatabaseContext>();
 
+builder.Services.AddScoped<UserUnitOfWork>();
+
 var app = builder.Build();
 
 using (IServiceScope scope = app.Services.CreateScope())
@@ -33,8 +35,6 @@ using (IServiceScope scope = app.Services.CreateScope())
 
     databaseContext.SaveChanges();
 }
-
-builder.Services.AddSingleton<UserUnitOfWork>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
