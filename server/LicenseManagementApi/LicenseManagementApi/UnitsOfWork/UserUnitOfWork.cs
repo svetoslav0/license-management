@@ -43,5 +43,16 @@
                 .Where(x => x.HasLicense == true)
                 .Count();
         }
+
+        public async Task UpdateLicenseStatus(int userId, bool shouldHaveLicense)
+        {
+            User user = this.databaseContext
+                .Users
+                .First(x => x.Id == userId);
+
+            user.HasLicense = shouldHaveLicense;
+
+            await this.databaseContext.SaveChangesAsync();
+        }
     }
 }

@@ -12,5 +12,7 @@
         public User GetUserByUsername(string username);
 
         public int GetUsersWithLicenseCount();
+
+        public Task UpdateLicenseStatus(int userId, bool shouldHaveLicense);
     }
 }
