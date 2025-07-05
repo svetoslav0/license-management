@@ -3,6 +3,7 @@ using LicenseManagementApi.Database.EF.Models;
 using LicenseManagementApi.Interfaces;
 using LicenseManagementApi.ResponseBuilders;
 using LicenseManagementApi.Services;
+using LicenseManagementApi.UnitsOfWork;
 using LicenseManagementApi.Validators;
 
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddScoped<IUserUnitOfWork, UserUnitOfWork>();
+builder.Services.AddScoped<IPlanUnitOfWork, PlanUnitOfWork>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
+builder.Services.AddScoped<IPlanValidator, PlanValidator>();
 
 builder.Services.AddSingleton<IUserResponseBuilder, UserResponseBuilder>();
 builder.Services.AddSingleton<IPlanResponseBuilder, PlanResponseBuilder>();
