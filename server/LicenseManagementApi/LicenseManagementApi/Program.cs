@@ -29,6 +29,17 @@ builder.Services.AddScoped<IPlanValidator, PlanValidator>();
 builder.Services.AddSingleton<IUserResponseBuilder, UserResponseBuilder>();
 builder.Services.AddSingleton<IPlanResponseBuilder, PlanResponseBuilder>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3009")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 using (IServiceScope scope = app.Services.CreateScope())
@@ -63,6 +74,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 
