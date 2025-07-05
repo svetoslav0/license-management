@@ -13,19 +13,22 @@
     {
         private readonly IUserUnitOfWork unitOfWork;
         private readonly IUserResponseBuilder responseBuilder;
+        private readonly IUserValidator validator;
 
         public UserController(
             IUserUnitOfWork unitOfWork,
-            IUserResponseBuilder responseBuilder)
+            IUserResponseBuilder responseBuilder,
+            IUserValidator validator)
         {
             this.unitOfWork = unitOfWork;
             this.responseBuilder = responseBuilder;
+            this.validator = validator;
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateUserParameters parameters)
         {
-            parameters.Validate();
+            this.validator.ValidateCreateUserParameters(parameters);
 
             await this.unitOfWork.SaveUserAsync(parameters);
 

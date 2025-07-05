@@ -8,5 +8,7 @@
         public Task SaveUserAsync(CreateUserParameters parameters);
 
         public List<User> ListUsers();
+
+        public User GetUserByUsername(string username);
     }
 }

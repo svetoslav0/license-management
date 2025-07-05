@@ -9,27 +9,5 @@
 
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        public void Validate()
-        {
-            this.ValidateUsername();
-            this.ValidateName();
-        }
-
-        private void ValidateUsername()
-        {
-            if (string.IsNullOrEmpty(this.Username))
-            {
-                throw new BadHttpRequestException("username is required");
-            }
-        }
-
-        private void ValidateName()
-        {
-            if (string.IsNullOrEmpty(this.Name))
-            {
-                throw new BadHttpRequestException("name is required");
-            }
-        }
     }
 }
