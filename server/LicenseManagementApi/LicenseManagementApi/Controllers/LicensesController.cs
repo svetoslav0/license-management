@@ -9,15 +9,23 @@
     public class LicensesController : AbstractController
     {
         private readonly IUserUnitOfWork userUnitOfWork;
-        public LicensesController(IUserUnitOfWork userUnitOfWork)
+        private readonly IUserValidator userValidator;
+
+        public LicensesController(
+            IUserUnitOfWork userUnitOfWork,
+            IUserValidator userValidator)
         {
             this.userUnitOfWork = userUnitOfWork;
+            this.userValidator = userValidator;
         }
 
         [HttpPost("assign")]
-        public IActionResult Assign([FromForm] int userId)
+        public IActionResult Assign([FromForm(Name = "user_id")] int userId)
         {
             // todo: validations
+            this.userValidator.ValidateUserExistanceBy(userId);
+            // does the user have license already?
+            // does the current plan allow move licenses?
 
             this.userUnitOfWork.UpdateLicenseStatus(userId, shouldHaveLicense: true);
 
@@ -25,9 +33,11 @@
         }
 
         [HttpPost("unassign")]
-        public IActionResult Unassign([FromForm] int userId)
+        public IActionResult Unassign([FromForm(Name = "user_id")] int userId)
         {
             // todo: validations
+            this.userValidator.ValidateUserExistanceBy(userId);
+            // does the user have license already?
 
             this.userUnitOfWork.UpdateLicenseStatus(userId, shouldHaveLicense: false);
 

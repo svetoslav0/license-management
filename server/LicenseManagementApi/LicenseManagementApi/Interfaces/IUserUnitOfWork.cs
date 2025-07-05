@@ -9,7 +9,9 @@
 
         public List<User> ListUsers();
 
-        public User GetUserByUsername(string username);
+        public User GetUserBy(string username);
+
+        public User GetUserBy(int id);
 
         public int GetUsersWithLicenseCount();
 

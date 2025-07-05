@@ -8,6 +8,8 @@ using LicenseManagementApi.Validators;
 
 using Microsoft.EntityFrameworkCore;
 
+// TODO: Add exception handler
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

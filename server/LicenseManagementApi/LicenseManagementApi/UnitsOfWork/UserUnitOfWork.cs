@@ -29,9 +29,16 @@
             return users;
         }
 
-        public User GetUserByUsername(string username)
+        public User GetUserBy(string username)
         {
             User user = this.databaseContext.Users.FirstOrDefault(u => u.Username == username);
+
+            return user;
+        }
+
+        public User GetUserBy(int id)
+        {
+            User user = this.databaseContext.Users.FirstOrDefault(u => u.Id == id);
 
             return user;
         }

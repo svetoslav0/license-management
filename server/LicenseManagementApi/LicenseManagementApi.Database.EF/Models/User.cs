@@ -16,6 +16,7 @@
         [Column("id")]
         public int Id { get; set; }
 
+        // TODO: Must replace `username` to `email` to satisfy the requirements!!!
         [Required]
         [Column("username")]
         public string Username { get; set; }
