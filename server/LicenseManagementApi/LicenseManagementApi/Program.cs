@@ -36,6 +36,15 @@ using (IServiceScope scope = app.Services.CreateScope())
         );
     }
 
+    if (!databaseContext.Subscription.Any())
+    {
+        databaseContext.Subscription.Add(new Subscription
+        {
+            PlanId = 1,
+            SwitchedAt = DateTime.UtcNow
+        });
+    }
+
     databaseContext.SaveChanges();
 }
 
