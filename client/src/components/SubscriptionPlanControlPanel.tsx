@@ -6,9 +6,11 @@ import { IValueLabelOption } from '../interfaces/IValueLabelOption';
 import { apiClient } from '../api/apiClient';
 
 function SubscriptionPlanControlPanel({
-        plansInfo
+        plansInfo,
+        refreshPlansInfo
     }: {
         plansInfo: IPlansInfoResponse;
+        refreshPlansInfo: () => void;
     }) {
 
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
@@ -27,12 +29,13 @@ function SubscriptionPlanControlPanel({
     const handleOnChangePlanButtonClick = () => {
         apiClient.switchPlan(selectedPlanName)
             .then((response) => {
+                refreshPlansInfo();
                 alert('Plan Selected');
             })
             .catch((error) => {
                 console.log(error);
                 alert(error.message);
-            })
+            });
     }
 
     return (
