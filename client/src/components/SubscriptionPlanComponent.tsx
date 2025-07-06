@@ -27,7 +27,7 @@ function SubscriptionPlanComponent() {
         <div>
             <h1>Subscription Plan</h1>
             <div>
-                Plan:
+                Plan: {currentPlan.planName} ({currentPlan.currentLicensesCount}/{currentPlan.seatLimit} licenses used)
             </div>
         </div>
     );
