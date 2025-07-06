@@ -534,7 +534,7 @@ export interface IResponseMessage {
 }
 
 export class UserResponse implements IUserResponse {
-    data?: UserResponseData | undefined;
+    data!: UserResponseData;
 
     constructor(data?: IUserResponse) {
         if (data) {
@@ -543,11 +543,14 @@ export class UserResponse implements IUserResponse {
                     (<any>this)[property] = (<any>data)[property];
             }
         }
+        if (!data) {
+            this.data = new UserResponseData();
+        }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.data = _data["data"] ? UserResponseData.fromJS(_data["data"]) : <any>undefined;
+            this.data = _data["data"] ? UserResponseData.fromJS(_data["data"]) : new UserResponseData();
         }
     }
 
@@ -566,12 +569,12 @@ export class UserResponse implements IUserResponse {
 }
 
 export interface IUserResponse {
-    data?: UserResponseData | undefined;
+    data: UserResponseData;
 }
 
 export class UserResponseData implements IUserResponseData {
-    count?: number | undefined;
-    users?: UserResponseItem[] | undefined;
+    count!: number;
+    users!: UserResponseItem[];
 
     constructor(data?: IUserResponseData) {
         if (data) {
@@ -579,6 +582,9 @@ export class UserResponseData implements IUserResponseData {
                 if (data.hasOwnProperty(property))
                     (<any>this)[property] = (<any>data)[property];
             }
+        }
+        if (!data) {
+            this.users = [];
         }
     }
 
@@ -613,15 +619,15 @@ export class UserResponseData implements IUserResponseData {
 }
 
 export interface IUserResponseData {
-    count?: number | undefined;
-    users?: UserResponseItem[] | undefined;
+    count: number;
+    users: UserResponseItem[];
 }
 
 export class UserResponseItem implements IUserResponseItem {
-    id?: number | undefined;
-    username?: string | undefined;
-    name?: string | undefined;
-    hasLicense?: boolean | undefined;
+    id!: number;
+    username!: string;
+    name!: string;
+    hasLicense!: boolean;
 
     constructor(data?: IUserResponseItem) {
         if (data) {
@@ -659,10 +665,10 @@ export class UserResponseItem implements IUserResponseItem {
 }
 
 export interface IUserResponseItem {
-    id?: number | undefined;
-    username?: string | undefined;
-    name?: string | undefined;
-    hasLicense?: boolean | undefined;
+    id: number;
+    username: string;
+    name: string;
+    hasLicense: boolean;
 }
 
 export class ApiException extends Error {

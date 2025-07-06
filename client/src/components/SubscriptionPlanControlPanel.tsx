@@ -41,14 +41,15 @@ function SubscriptionPlanControlPanel({
 
     return (
         <div className='text-left'>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-2'>
                 <div className='border p-4'>Max Licenses</div>
                 <div className='border p-4'>{plansInfo.currentPlan.seatLimit}</div>
             </div>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-2'>
                 <div className='border p-4'>Upgrade/Downgrade plan</div>
                 <div className='border p-4'>
                     <div className='flex items-center gap-2'>
+                        {/* TODO: Disable or notify if too many licenses */}
                         <Select
                             className='basic-single'
                             classNamePrefix='select'
