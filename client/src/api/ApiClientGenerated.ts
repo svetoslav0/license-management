@@ -140,7 +140,7 @@ export class Client {
     /**
      * @return Get current plan response
      */
-    getCurrentPlan( cancelToken?: CancelToken): Promise<PlanResponse> {
+    getPlansInfo( cancelToken?: CancelToken): Promise<PlansInfoResponse> {
         let url_ = this.baseUrl + "/Plan";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -160,11 +160,11 @@ export class Client {
                 throw _error;
             }
         }).then((_response: AxiosResponse) => {
-            return this.processGetCurrentPlan(_response);
+            return this.processGetPlansInfo(_response);
         });
     }
 
-    protected processGetCurrentPlan(response: AxiosResponse): Promise<PlanResponse> {
+    protected processGetPlansInfo(response: AxiosResponse): Promise<PlansInfoResponse> {
         const status = response.status;
         let _headers: any = {};
         if (response.headers && typeof response.headers === "object") {
@@ -178,14 +178,14 @@ export class Client {
             const _responseText = response.data;
             let result200: any = null;
             let resultData200  = _responseText;
-            result200 = PlanResponse.fromJS(resultData200);
-            return Promise.resolve<PlanResponse>(result200);
+            result200 = PlansInfoResponse.fromJS(resultData200);
+            return Promise.resolve<PlansInfoResponse>(result200);
 
         } else if (status !== 200 && status !== 204) {
             const _responseText = response.data;
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
         }
-        return Promise.resolve<PlanResponse>(null as any);
+        return Promise.resolve<PlansInfoResponse>(null as any);
     }
 
     /**
@@ -357,13 +357,13 @@ export class Client {
     }
 }
 
-export class PlanResponse implements IPlanResponse {
+export class CurrentPlanItem implements ICurrentPlanItem {
     planName?: string | undefined;
     seatLimit?: number | undefined;
     switchedAt?: Date | undefined;
     currentLicensesCount?: number | undefined;
 
-    constructor(data?: IPlanResponse) {
+    constructor(data?: ICurrentPlanItem) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -381,9 +381,9 @@ export class PlanResponse implements IPlanResponse {
         }
     }
 
-    static fromJS(data: any): PlanResponse {
+    static fromJS(data: any): CurrentPlanItem {
         data = typeof data === 'object' ? data : {};
-        let result = new PlanResponse();
+        let result = new CurrentPlanItem();
         result.init(data);
         return result;
     }
@@ -398,11 +398,103 @@ export class PlanResponse implements IPlanResponse {
     }
 }
 
-export interface IPlanResponse {
+export interface ICurrentPlanItem {
     planName?: string | undefined;
     seatLimit?: number | undefined;
     switchedAt?: Date | undefined;
     currentLicensesCount?: number | undefined;
+}
+
+export class PlanItem implements IPlanItem {
+    name?: string | undefined;
+    seatLimit?: number | undefined;
+
+    constructor(data?: IPlanItem) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.seatLimit = _data["seatLimit"];
+        }
+    }
+
+    static fromJS(data: any): PlanItem {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlanItem();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["seatLimit"] = this.seatLimit;
+        return data;
+    }
+}
+
+export interface IPlanItem {
+    name?: string | undefined;
+    seatLimit?: number | undefined;
+}
+
+export class PlansInfoResponse implements IPlansInfoResponse {
+    currentPlan!: CurrentPlanItem;
+    plans!: PlanItem[];
+
+    constructor(data?: IPlansInfoResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.currentPlan = new CurrentPlanItem();
+            this.plans = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentPlan = _data["currentPlan"] ? CurrentPlanItem.fromJS(_data["currentPlan"]) : new CurrentPlanItem();
+            if (Array.isArray(_data["plans"])) {
+                this.plans = [] as any;
+                for (let item of _data["plans"])
+                    this.plans!.push(PlanItem.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PlansInfoResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlansInfoResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentPlan"] = this.currentPlan ? this.currentPlan.toJSON() : <any>undefined;
+        if (Array.isArray(this.plans)) {
+            data["plans"] = [];
+            for (let item of this.plans)
+                data["plans"].push(item ? item.toJSON() : <any>undefined);
+        }
+        return data;
+    }
+}
+
+export interface IPlansInfoResponse {
+    currentPlan: CurrentPlanItem;
+    plans: PlanItem[];
 }
 
 export class ResponseMessage implements IResponseMessage {
