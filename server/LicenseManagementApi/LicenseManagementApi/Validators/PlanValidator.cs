@@ -20,12 +20,12 @@
         {
             List<SubscriptionPlan> plans = this.planUnitOfWork.GetPlans();
 
-            if (!plans.Any(x => x.Name == name))
+            if (!plans.Any(x => x.Name.ToLower() == name.ToLower()))
             {
                 throw new BadHttpRequestException($"Plan with name {name} does not exist");
             }
 
-            SubscriptionPlan desiredPlan = plans.FirstOrDefault(x => x.Name == name);
+            SubscriptionPlan desiredPlan = plans.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
             Subscription subscription = this.planUnitOfWork.GetCurrentSubscription();
             int currenctLicensesCount = this.userUnitOfWork.GetUsersWithLicenseCount();
 

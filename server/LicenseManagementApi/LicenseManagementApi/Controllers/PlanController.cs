@@ -55,13 +55,10 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
         public async Task<IActionResult> SwitchPlanAsync([FromForm(Name = "plan_name")] string planName)
         {
-            // TODO: create a ToLower binder
-            string loweredPlanName = planName.ToLowerInvariant();
+            this.validator.ValidatePlanBy(planName);
+            await this.planUnitOfWork.SwitchPlanTo(planName);
 
-            this.validator.ValidatePlanBy(loweredPlanName);
-            await this.planUnitOfWork.SwitchPlanTo(loweredPlanName);
-
-            return this.BuildSuccessResponseMessage($"Successfully switched to {loweredPlanName} plan");
+            return this.BuildSuccessResponseMessage($"Successfully switched to {planName} plan");
         }
     }
 }

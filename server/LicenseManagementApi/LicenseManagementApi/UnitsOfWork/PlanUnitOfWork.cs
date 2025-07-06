@@ -41,7 +41,7 @@
 
         public async Task SwitchPlanTo(string name)
         {
-            SubscriptionPlan newPlan = this.plansList.First(x => x.Name == name);
+            SubscriptionPlan newPlan = this.plansList.First(x => x.Name.ToLower() == name.ToLower());
 
             Subscription currentSubscription = this.databaseContext
                 .Subscription
