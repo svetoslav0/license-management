@@ -53,9 +53,9 @@ using (IServiceScope scope = app.Services.CreateScope())
     if (!databaseContext.SubscriptionPlans.Any())
     {
         databaseContext.SubscriptionPlans.AddRange(
-            new SubscriptionPlan { Id = 1, Name = "basic", SeatLimit = 5 },
-            new SubscriptionPlan { Id = 2, Name = "pro", SeatLimit = 25 },
-            new SubscriptionPlan { Id = 3, Name = "enterprise", SeatLimit = 100 }
+            new SubscriptionPlan { Id = 1, Name = "Basic", SeatLimit = 5 },
+            new SubscriptionPlan { Id = 2, Name = "Pro", SeatLimit = 25 },
+            new SubscriptionPlan { Id = 3, Name = "Enterprise", SeatLimit = 100 }
         );
     }
 
