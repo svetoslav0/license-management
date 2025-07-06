@@ -30,6 +30,7 @@ function SubscriptionPlanControlPanel({
         apiClient.switchPlan(selectedPlanName)
             .then((response) => {
                 refreshPlansInfo();
+                setIsButtonDisabled(true);
                 alert('Plan Selected');
             })
             .catch((error) => {
