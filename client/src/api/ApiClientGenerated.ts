@@ -24,15 +24,16 @@ export class Client {
     }
 
     /**
-     * @param user_id (optional) 
      * @return Get current plan response
      */
-    assignLicense(user_id: number | null | undefined, cancelToken?: CancelToken): Promise<ResponseMessage> {
+    assignLicense(user_id: number, cancelToken?: CancelToken): Promise<ResponseMessage> {
         let url_ = this.baseUrl + "/Licenses/assign";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (user_id !== null && user_id !== undefined)
+        if (user_id === null || user_id === undefined)
+            throw new Error("The parameter 'user_id' cannot be null.");
+        else
             content_.append("user_id", user_id.toString());
 
         let options_: AxiosRequestConfig = {
@@ -81,15 +82,16 @@ export class Client {
     }
 
     /**
-     * @param user_id (optional) 
      * @return Get current plan response
      */
-    unassignLicense(user_id: number | null | undefined, cancelToken?: CancelToken): Promise<ResponseMessage> {
+    unassignLicense(user_id: number, cancelToken?: CancelToken): Promise<ResponseMessage> {
         let url_ = this.baseUrl + "/Licenses/unassign";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (user_id !== null && user_id !== undefined)
+        if (user_id === null || user_id === undefined)
+            throw new Error("The parameter 'user_id' cannot be null.");
+        else
             content_.append("user_id", user_id.toString());
 
         let options_: AxiosRequestConfig = {

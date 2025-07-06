@@ -1,9 +1,15 @@
 import { IUserResponseData, UserResponseItem } from '../api/ApiClientGenerated';
 
 function UsersControlPanel({
-        usersList
+        usersList,
+        assignLicense,
+        unassignLicense,
+        canAssignMoreLicenses,
     }: {
-        usersList: IUserResponseData
+        usersList: IUserResponseData,
+        assignLicense: (userId: number) => void,
+        unassignLicense: (userId: number) => void,
+        canAssignMoreLicenses: boolean,
     }) {
 
     return (
@@ -23,11 +29,16 @@ function UsersControlPanel({
                     <div className='border p-4'>
                         {user.hasLicense
                             ? <button
+                                onClick={() => unassignLicense(user.id)}
                                 className='px-4 py-1.5 rounded bg-red-500 hover:bg-red-600 text-white'>
                                 Remove License
                               </button>
                             : <button
-                                className='px-4 py-1.5 rounded bg-green-500 hover:bg-green-600 text-white'>
+                                disabled={!canAssignMoreLicenses}
+                                onClick={() => assignLicense(user.id)}
+                                className='px-4 py-1.5 rounded
+                                    bg-green-500 hover:bg-green-600 text-white
+                                    disabled:bg-green-300 disabled:text-white/70 disabled:cursor-not-allowed'>
                                 Assign License
                               </button>
                         }

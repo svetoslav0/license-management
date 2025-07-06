@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import {IPlansInfoResponse, IUserResponse, IUserResponseData} from '../api/ApiClientGenerated';
+import { IPlansInfoResponse, IResponseMessage, IUserResponse, IUserResponseData } from '../api/ApiClientGenerated';
 import { apiClient } from '../api/apiClient';
 
 import SubscriptionPlanBasicInfo from './SubscriptionPlanBasicInfo';
@@ -38,6 +38,30 @@ function Dashboard() {
             })
     }
 
+    const assignLicense = (userId: number) => {
+        apiClient.assignLicense(userId)
+            .then((response: IResponseMessage) => {
+                alert(response.message);
+                fetchPlansInfo();
+                fetchUsersList();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+    const unassignLicense = (userId: number) => {
+        apiClient.unassignLicense(userId)
+            .then((response: IResponseMessage) => {
+                alert(response.message);
+                fetchPlansInfo();
+                fetchUsersList();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     useEffect(() => {
         fetchPlansInfo();
         fetchUsersList();
@@ -51,8 +75,15 @@ function Dashboard() {
         usersList &&
         <div className='container sm:bg-white mx-auto'>
             <SubscriptionPlanBasicInfo plansInfo={plansInfo} />
-            <SubscriptionPlanControlPanel plansInfo={plansInfo} refreshPlansInfo={fetchPlansInfo} />
-            <UsersControlPanel usersList={usersList} />
+            <SubscriptionPlanControlPanel
+                plansInfo={plansInfo}
+                refreshPlansInfo={fetchPlansInfo} />
+            <UsersControlPanel
+                usersList={usersList}
+                assignLicense={assignLicense}
+                unassignLicense={unassignLicense}
+                canAssignMoreLicenses={plansInfo.currentPlan.seatLimit > plansInfo.currentPlan.currentLicensesCount}
+            />
         </div>
     );
 }
