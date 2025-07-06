@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 
-import { PlanResponse } from '../api/ApiClientGenerated';
+import { IPlansInfoResponse } from '../api/ApiClientGenerated';
 import { apiClient } from '../api/apiClient';
 
 import SubscriptionPlanBasicInfo from './SubscriptionPlanBasicInfo';
+import SubscriptionPlanControlPanel from './SubscriptionPlanControlPanel'
 
 function Dashboard() {
-    const [currentPlan, setCurrentPlan] = useState<PlanResponse | null>(null);
+    const [plansInfo, setPlansInfo] = useState<IPlansInfoResponse | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        apiClient.getCurrentPlan()
-            .then((plan: PlanResponse) => {
-                setCurrentPlan(plan);
+        apiClient.getPlansInfo()
+            .then((plans: IPlansInfoResponse) => {
+                setPlansInfo(plans);
                 setIsLoading(false);
             })
             .catch(error => {
@@ -24,9 +25,11 @@ function Dashboard() {
     if (isLoading) return <>Loading...</>;
 
     return (
-        currentPlan &&
+        plansInfo &&
+        plansInfo.currentPlan &&
         <div className='container sm:bg-white mx-auto'>
-            <SubscriptionPlanBasicInfo currentPlan={currentPlan} />
+            <SubscriptionPlanBasicInfo plansInfo={plansInfo} />
+            <SubscriptionPlanControlPanel plansInfo={plansInfo} />
         </div>
     );
 }

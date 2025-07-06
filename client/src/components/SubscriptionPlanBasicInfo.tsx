@@ -1,17 +1,17 @@
-import { PlanResponse } from '../api/ApiClientGenerated';
+import { IPlansInfoResponse } from '../api/ApiClientGenerated';
 
 function SubscriptionPlanBasicInfo({
-        currentPlan
+        plansInfo
     }: {
-        currentPlan: PlanResponse;
+        plansInfo: IPlansInfoResponse;
     }) {
 
     return (
-        currentPlan &&
+        plansInfo &&
         <div>
             <h1>Subscription Plan</h1>
             <div>
-                Plan: {currentPlan.planName} ({currentPlan.currentLicensesCount}/{currentPlan.seatLimit} licenses used)
+                Plan: {plansInfo.currentPlan.planName} ({plansInfo.currentPlan.currentLicensesCount}/{plansInfo.currentPlan.seatLimit} licenses used)
             </div>
         </div>
     );
