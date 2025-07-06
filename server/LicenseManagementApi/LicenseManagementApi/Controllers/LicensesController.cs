@@ -7,6 +7,8 @@
 
     using Swashbuckle.AspNetCore.Annotations;
 
+    using System.ComponentModel.DataAnnotations;
+
     [ApiController]
     [Route("[controller]")]
     public class LicensesController : AbstractController
@@ -25,7 +27,7 @@
         [HttpPost("assign")]
         [SwaggerOperation(OperationId = "assignLicense")]
         [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
-        public IActionResult Assign([FromForm(Name = "user_id")] int userId)
+        public IActionResult Assign([FromForm(Name = "user_id"), Required] int userId)
         {
             this.planValidator.ValidateOnLicenseAssign(userId);
             
@@ -37,7 +39,7 @@
         [HttpPost("unassign")]
         [SwaggerOperation(OperationId = "unassignLicense")]
         [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
-        public IActionResult Unassign([FromForm(Name = "user_id")] int userId)
+        public IActionResult Unassign([FromForm(Name = "user_id"), Required] int userId)
         {
             this.planValidator.ValidateOnLicenseUnassign(userId);
             
