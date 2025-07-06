@@ -3,9 +3,12 @@
     using LicenseManagementApi.Database.EF.Models;
     using LicenseManagementApi.Interfaces;
     using LicenseManagementApi.Models.ParameterModels;
+    using LicenseManagementApi.Models.ResponseModels;
     using LicenseManagementApi.Models.ResponseModels.User;
 
     using Microsoft.AspNetCore.Mvc;
+
+    using Swashbuckle.AspNetCore.Annotations;
 
     [ApiController]
     [Route("[controller]")]
@@ -26,6 +29,8 @@
         }
 
         [HttpPost]
+        [SwaggerOperation(OperationId = "createUser")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
         public async Task<IActionResult> Create([FromForm] CreateUserParameters parameters)
         {
             this.validator.ValidateCreateUserParameters(parameters);
@@ -36,6 +41,8 @@
         }
 
         [HttpGet]
+        [SwaggerOperation(OperationId = "getUsers")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(UserResponse))]
         public IActionResult GetUsers()
         {
             List<User> usersList = this.unitOfWork.ListUsers();

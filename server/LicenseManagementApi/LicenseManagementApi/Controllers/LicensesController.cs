@@ -1,8 +1,11 @@
 ﻿namespace LicenseManagementApi.Controllers
 {
     using LicenseManagementApi.Interfaces;
+    using LicenseManagementApi.Models.ResponseModels;
 
     using Microsoft.AspNetCore.Mvc;
+
+    using Swashbuckle.AspNetCore.Annotations;
 
     [ApiController]
     [Route("[controller]")]
@@ -20,6 +23,8 @@
         }
 
         [HttpPost("assign")]
+        [SwaggerOperation(OperationId = "assignLicense")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
         public IActionResult Assign([FromForm(Name = "user_id")] int userId)
         {
             this.planValidator.ValidateOnLicenseAssign(userId);
@@ -30,6 +35,8 @@
         }
 
         [HttpPost("unassign")]
+        [SwaggerOperation(OperationId = "unassignLicense")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
         public IActionResult Unassign([FromForm(Name = "user_id")] int userId)
         {
             this.planValidator.ValidateOnLicenseUnassign(userId);

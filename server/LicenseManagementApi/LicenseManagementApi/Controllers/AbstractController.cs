@@ -1,14 +1,16 @@
 ﻿namespace LicenseManagementApi.Controllers
 {
+    using LicenseManagementApi.Models.ResponseModels;
+
     using Microsoft.AspNetCore.Mvc;
 
     public abstract class AbstractController : Controller
     {
         protected IActionResult BuildSuccessResponseMessage(string message)
         {
-            var result = new
+            ResponseMessage result = new ResponseMessage
             {
-                message
+                Message = message
             };
 
             return this.Ok(result);

@@ -3,9 +3,12 @@
     using LicenseManagementApi.Database.EF;
     using LicenseManagementApi.Database.EF.Models;
     using LicenseManagementApi.Interfaces;
+    using LicenseManagementApi.Models.ResponseModels;
     using LicenseManagementApi.Models.ResponseModels.Plan;
 
     using Microsoft.AspNetCore.Mvc;
+
+    using Swashbuckle.AspNetCore.Annotations;
 
     using System.Threading.Tasks;
 
@@ -31,6 +34,8 @@
         }
 
         [HttpGet]
+        [SwaggerOperation(OperationId = "getCurrentPlan")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(PlanResponse))]
         public IActionResult GetCurrentPlan()
         {
             Subscription plan = this.planUnitOfWork.GetCurrentSubscription();
@@ -42,6 +47,8 @@
         }
 
         [HttpPost("switch")]
+        [SwaggerOperation(OperationId = "switchPlan")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
         public async Task<IActionResult> SwitchPlanAsync([FromForm(Name = "plan_name")] string planName)
         {
             // TODO: create a ToLower binder
