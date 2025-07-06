@@ -11,7 +11,7 @@ function SubscriptionPlanBasicInfo({
         <div>
             <h1>Subscription Plan</h1>
             <div>
-                Plan: {plansInfo.currentPlan.planName} ({plansInfo.currentPlan.currentLicensesCount}/{plansInfo.currentPlan.seatLimit} licenses used)
+                Current Plan: {plansInfo.currentPlan.planName} ({plansInfo.currentPlan.currentLicensesCount}/{plansInfo.currentPlan.seatLimit} licenses used)
             </div>
         </div>
     );

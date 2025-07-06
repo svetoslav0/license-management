@@ -13,6 +13,7 @@ function Dashboard() {
     useEffect(() => {
         apiClient.getPlansInfo()
             .then((plans: IPlansInfoResponse) => {
+                console.log(plans);
                 setPlansInfo(plans);
                 setIsLoading(false);
             })

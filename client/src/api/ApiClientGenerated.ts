@@ -406,8 +406,8 @@ export interface ICurrentPlanItem {
 }
 
 export class PlanItem implements IPlanItem {
-    name?: string | undefined;
-    seatLimit?: number | undefined;
+    name!: string;
+    seatLimit!: number;
 
     constructor(data?: IPlanItem) {
         if (data) {
@@ -441,8 +441,8 @@ export class PlanItem implements IPlanItem {
 }
 
 export interface IPlanItem {
-    name?: string | undefined;
-    seatLimit?: number | undefined;
+    name: string;
+    seatLimit: number;
 }
 
 export class PlansInfoResponse implements IPlansInfoResponse {
