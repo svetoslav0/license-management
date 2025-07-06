@@ -1,6 +1,6 @@
 import { PlanResponse } from '../api/ApiClientGenerated';
 
-function SubscriptionPlanComponent({
+function SubscriptionPlanBasicInfo({
         currentPlan
     }: {
         currentPlan: PlanResponse;
@@ -17,4 +17,4 @@ function SubscriptionPlanComponent({
     );
 }
 
-export default SubscriptionPlanComponent;
+export default SubscriptionPlanBasicInfo;

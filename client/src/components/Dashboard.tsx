@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import { PlanResponse } from '../api/ApiClientGenerated';
 import { apiClient } from '../api/apiClient';
 
-import SubscriptionPlanComponent from './SubscriptionPlanComponent';
+import SubscriptionPlanBasicInfo from './SubscriptionPlanBasicInfo';
 
 function Dashboard() {
     const [currentPlan, setCurrentPlan] = useState<PlanResponse | null>(null);
@@ -20,13 +20,13 @@ function Dashboard() {
                 setIsLoading(false);
             });
     }, []);
-    
+
     if (isLoading) return <>Loading...</>;
 
     return (
         currentPlan &&
         <div className='container sm:bg-white mx-auto'>
-            <SubscriptionPlanComponent currentPlan={currentPlan} />
+            <SubscriptionPlanBasicInfo currentPlan={currentPlan} />
         </div>
     );
 }
