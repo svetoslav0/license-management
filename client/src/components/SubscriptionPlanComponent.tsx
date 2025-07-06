@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react';
 
-import '../App.css';
-
-import { getCurrentPlan } from '../services/api';
+import { PlanResponse } from '../api/ApiClientGenerated';
+import { apiClient } from '../api/apiClient';
 
 function SubscriptionPlanComponent() {
-    const [currentPlan, setCurrentPlan] = useState<any>({});
+    const [currentPlan, setCurrentPlan] = useState<PlanResponse | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        getCurrentPlan()
-            .then(response => {
-                setCurrentPlan(response.data);
-                console.log(response.data);
+        apiClient.getCurrentPlan()
+            .then((plan: PlanResponse) => {
+                setCurrentPlan(plan);
                 setIsLoading(false);
             })
             .catch(error => {
@@ -24,6 +22,7 @@ function SubscriptionPlanComponent() {
     if (isLoading) return <div>Loading . . .</div>;
 
     return (
+        currentPlan &&
         <div>
             <h1>Subscription Plan</h1>
             <div>
