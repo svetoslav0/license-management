@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { IPlansInfoResponse } from '../api/ApiClientGenerated';
 import { apiClient } from '../api/apiClient';

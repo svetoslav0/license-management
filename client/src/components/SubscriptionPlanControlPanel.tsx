@@ -3,6 +3,7 @@ import Select, { SingleValue } from 'react-select';
 
 import { IPlansInfoResponse } from '../api/ApiClientGenerated';
 import { IValueLabelOption } from '../interfaces/IValueLabelOption';
+import { apiClient } from '../api/apiClient';
 
 function SubscriptionPlanControlPanel({
         plansInfo
@@ -10,15 +11,28 @@ function SubscriptionPlanControlPanel({
         plansInfo: IPlansInfoResponse;
     }) {
 
-    const [isBButtonDisabled, setIsBButtonDisabled] = useState(true);
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+    const [selectedPlanName, setSelectedPlanName] = useState<string>(plansInfo.currentPlan.planName);
 
     const options: IValueLabelOption[] = plansInfo.plans.map(item => ({
         value: item.name.toLowerCase(),
         label: item.name
     }));
 
-    const handleOnSelect = (event: SingleValue<IValueLabelOption>) => {
-        setIsBButtonDisabled(event?.label === plansInfo.currentPlan.planName);
+    const handleOnSelectChange = (event: SingleValue<IValueLabelOption>) => {
+        setSelectedPlanName(event?.label || '')
+        setIsButtonDisabled(event?.label === plansInfo.currentPlan.planName);
+    }
+
+    const handleOnChangePlanButtonClick = () => {
+        apiClient.switchPlan(selectedPlanName)
+            .then((response) => {
+                alert('Plan Selected');
+            })
+            .catch((error) => {
+                console.log(error);
+                alert(error.message);
+            })
     }
 
     return (
@@ -37,17 +51,17 @@ function SubscriptionPlanControlPanel({
                             defaultValue={options.filter(i => i.label === plansInfo.currentPlan.planName)}
                             isLoading={false}
                             options={options}
-                            onChange={(x: SingleValue<IValueLabelOption>) => handleOnSelect(x)}
+                            onChange={(x: SingleValue<IValueLabelOption>) => handleOnSelectChange(x)}
                             styles={{container: (base) => ({...base, flex: 1})}}
                         />
                         <button
-                            disabled={isBButtonDisabled}
+                            disabled={isButtonDisabled}
+                            onClick={handleOnChangePlanButtonClick}
                             className='px-4 py-1.5 rounded text-white bg-blue-500 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed'>
                             Change Plan
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
     );

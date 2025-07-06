@@ -358,10 +358,10 @@ export class Client {
 }
 
 export class CurrentPlanItem implements ICurrentPlanItem {
-    planName?: string | undefined;
-    seatLimit?: number | undefined;
-    switchedAt?: Date | undefined;
-    currentLicensesCount?: number | undefined;
+    planName!: string;
+    seatLimit!: number;
+    switchedAt!: Date;
+    currentLicensesCount!: number;
 
     constructor(data?: ICurrentPlanItem) {
         if (data) {
@@ -399,10 +399,10 @@ export class CurrentPlanItem implements ICurrentPlanItem {
 }
 
 export interface ICurrentPlanItem {
-    planName?: string | undefined;
-    seatLimit?: number | undefined;
-    switchedAt?: Date | undefined;
-    currentLicensesCount?: number | undefined;
+    planName: string;
+    seatLimit: number;
+    switchedAt: Date;
+    currentLicensesCount: number;
 }
 
 export class PlanItem implements IPlanItem {
