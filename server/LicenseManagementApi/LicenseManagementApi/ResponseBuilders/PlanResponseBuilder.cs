@@ -6,14 +6,29 @@
 
     public class PlanResponseBuilder : IPlanResponseBuilder
     {
-        public PlanResponse BuildGetCurrentPlanInfoResponse(Subscription subscriptionInfo, int licensesCount)
+        public PlansInfoResponse BuildGetCurrentPlanInfoResponse(
+            Subscription subscriptionInfo,
+            List<SubscriptionPlan> availablePlans,
+            int licensesCount)
         {
-            PlanResponse planResponse = new PlanResponse
+            PlansInfoResponse planResponse = new PlansInfoResponse
             {
-                PlanName = subscriptionInfo.Plan.Name,
-                SwitchedAt = subscriptionInfo.SwitchedAt,
-                SeatLimit = subscriptionInfo.Plan.SeatLimit,
-                CurrentLicensesCount = licensesCount
+                CurrentPlan = new CurrentPlanItem
+                {
+                    PlanName = subscriptionInfo.Plan.Name,
+                    SwitchedAt = subscriptionInfo.SwitchedAt,
+                    SeatLimit = subscriptionInfo.Plan.SeatLimit,
+                    CurrentLicensesCount = licensesCount
+                },
+                Plans = availablePlans.Select(p =>
+                {
+                    return new PlanItem
+                    {
+                        Name = p.Name,
+                        SeatLimit = p.SeatLimit
+                    };
+                })
+                .ToList()
             };
 
             return planResponse;

@@ -34,17 +34,18 @@
         }
 
         [HttpGet]
-        [SwaggerOperation(OperationId = "getCurrentPlan")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(PlanResponse))]
-        public async Task<IActionResult> GetCurrentPlan()
+        [SwaggerOperation(OperationId = "getPlansInfo")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(PlansInfoResponse))]
+        public async Task<IActionResult> getPlansInfo()
         {
             // Latency simulation
             await Task.Delay(500);
 
             Subscription plan = this.planUnitOfWork.GetCurrentSubscription();
+            List<SubscriptionPlan> availablePlans = this.planUnitOfWork.GetPlans();
             int licensesCount = this.userUnitOfWork.GetUsersWithLicenseCount();
 
-            PlanResponse response = this.responseBuilder.BuildGetCurrentPlanInfoResponse(plan, licensesCount);
+            PlansInfoResponse response = this.responseBuilder.BuildGetCurrentPlanInfoResponse(plan, availablePlans, licensesCount);
 
             return this.Ok(response);
         }

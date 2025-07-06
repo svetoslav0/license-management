@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class PlanResponse
+    public class CurrentPlanItem
     {
         [JsonProperty("planName")]
         public string PlanName { get; set; }

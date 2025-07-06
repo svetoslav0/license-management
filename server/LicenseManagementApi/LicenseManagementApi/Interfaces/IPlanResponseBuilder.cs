@@ -5,6 +5,9 @@
 
     public interface IPlanResponseBuilder
     {
-        public PlanResponse BuildGetCurrentPlanInfoResponse(Subscription subscriptionInfo, int licensesCount);
+        public PlansInfoResponse BuildGetCurrentPlanInfoResponse(
+            Subscription subscriptionInfo,
+            List<SubscriptionPlan> availablePlans,
+            int licensesCount);
     }
 }
