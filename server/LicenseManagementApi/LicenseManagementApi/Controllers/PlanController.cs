@@ -36,8 +36,11 @@
         [HttpGet]
         [SwaggerOperation(OperationId = "getCurrentPlan")]
         [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(PlanResponse))]
-        public IActionResult GetCurrentPlan()
+        public async Task<IActionResult> GetCurrentPlan()
         {
+            // Latency simulation
+            await Task.Delay(500);
+
             Subscription plan = this.planUnitOfWork.GetCurrentSubscription();
             int licensesCount = this.userUnitOfWork.GetUsersWithLicenseCount();
 
