@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Select, { SingleValue } from 'react-select';
 
+import { toast } from 'react-toastify';
+
 import { IPlansInfoResponse } from '../api/ApiClientGenerated';
 import { IValueLabelOption } from '../interfaces/IValueLabelOption';
 import { apiClient } from '../api/apiClient';
@@ -31,11 +33,11 @@ function SubscriptionPlanControlPanel({
             .then((response) => {
                 refreshPlansInfo();
                 setIsButtonDisabled(true);
-                alert('Plan Selected');
+                toast.success('Plan was changed successfully.');
             })
             .catch((error) => {
                 console.log(error);
-                alert(error.message);
+                toast.error(error.message);
             });
     }
 

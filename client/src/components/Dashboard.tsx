@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import { IPlansInfoResponse, IResponseMessage, IUserResponse, IUserResponseData } from '../api/ApiClientGenerated';
 import { apiClient } from '../api/apiClient';
 
@@ -41,7 +43,7 @@ function Dashboard() {
     const assignLicense = (userId: number) => {
         apiClient.assignLicense(userId)
             .then((response: IResponseMessage) => {
-                alert(response.message);
+                toast.success(response.message);
                 fetchPlansInfo();
                 fetchUsersList();
             })
@@ -53,7 +55,7 @@ function Dashboard() {
     const unassignLicense = (userId: number) => {
         apiClient.unassignLicense(userId)
             .then((response: IResponseMessage) => {
-                alert(response.message);
+                toast.success(response.message);
                 fetchPlansInfo();
                 fetchUsersList();
             })
