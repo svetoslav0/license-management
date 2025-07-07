@@ -45,9 +45,9 @@
 
 ```bash
 
-git clone <repository-url>
+git clone https://github.com/svetoslav0/license-management
 
-cd <repository-folder>
+cd license-management
 
 ```
 
