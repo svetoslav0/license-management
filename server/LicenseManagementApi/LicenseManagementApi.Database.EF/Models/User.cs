@@ -6,9 +6,9 @@
     [Table("user")]
     public class User
     {
-        public User(string username, string name)
+        public User(string email, string name)
         {
-            this.Username = username;
+            this.Email = email;
             this.Name = name;
         }
 
@@ -16,10 +16,9 @@
         [Column("id")]
         public int Id { get; set; }
 
-        // TODO: Must replace `username` to `email` to satisfy the requirements!!!
         [Required]
-        [Column("username")]
-        public string Username { get; set; }
+        [Column("email")]
+        public string Email { get; set; }
 
         [Required]
         [Column("name")]

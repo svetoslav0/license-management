@@ -77,8 +77,8 @@ function Dashboard() {
             });
     };
 
-    const createUser = (username: string, name: string) => {
-        apiClient.createUser(username, name)
+    const createUser = (email: string, name: string) => {
+        apiClient.createUser(email, name)
             .then((response: IResponseMessage) => {
                 toast.success(response.message);
                 setIsModalOpen(false);
@@ -110,11 +110,11 @@ function Dashboard() {
 
             <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'
             >
                 Create New User
             </button>
-            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <div className='min-h-screen flex items-center justify-center bg-gray-100'>
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                     <CreateUser onSubmit={createUser} />
                 </Modal>

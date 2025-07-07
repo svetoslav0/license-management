@@ -16,7 +16,7 @@
 
         public async Task SaveUserAsync(CreateUserParameters parameters)
         {
-            User user = new User(parameters.Username, parameters.Name);
+            User user = new User(parameters.Email, parameters.Name);
 
             this.databaseContext.Users.Add(user);
             await this.databaseContext.SaveChangesAsync();
@@ -29,9 +29,9 @@
             return users;
         }
 
-        public User GetUserBy(string username)
+        public User GetUserBy(string email)
         {
-            User user = this.databaseContext.Users.FirstOrDefault(u => u.Username == username);
+            User user = this.databaseContext.Users.FirstOrDefault(u => u.Email == email);
 
             return user;
         }

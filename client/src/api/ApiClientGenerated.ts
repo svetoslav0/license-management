@@ -250,15 +250,15 @@ export class Client {
     /**
      * @return Get current plan response
      */
-    createUser(username: string, name: string, cancelToken?: CancelToken): Promise<ResponseMessage> {
+    createUser(email: string, name: string, cancelToken?: CancelToken): Promise<ResponseMessage> {
         let url_ = this.baseUrl + "/User";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (username === null || username === undefined)
-            throw new Error("The parameter 'username' cannot be null.");
+        if (email === null || email === undefined)
+            throw new Error("The parameter 'email' cannot be null.");
         else
-            content_.append("Username", username.toString());
+            content_.append("Email", email.toString());
         if (name === null || name === undefined)
             throw new Error("The parameter 'name' cannot be null.");
         else
@@ -629,7 +629,7 @@ export interface IUserResponseData {
 
 export class UserResponseItem implements IUserResponseItem {
     id!: number;
-    username!: string;
+    email!: string;
     name!: string;
     hasLicense!: boolean;
 
@@ -645,7 +645,7 @@ export class UserResponseItem implements IUserResponseItem {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.username = _data["username"];
+            this.email = _data["email"];
             this.name = _data["name"];
             this.hasLicense = _data["hasLicense"];
         }
@@ -661,7 +661,7 @@ export class UserResponseItem implements IUserResponseItem {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["username"] = this.username;
+        data["email"] = this.email;
         data["name"] = this.name;
         data["hasLicense"] = this.hasLicense;
         return data;
@@ -670,7 +670,7 @@ export class UserResponseItem implements IUserResponseItem {
 
 export interface IUserResponseItem {
     id: number;
-    username: string;
+    email: string;
     name: string;
     hasLicense: boolean;
 }

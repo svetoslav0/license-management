@@ -7,8 +7,8 @@
     public class CreateUserParameters
     {
         [Required]
-        [JsonProperty("username")]
-        public string Username { get; set; }
+        [JsonProperty("email")]
+        public string Email { get; set; }
 
         [Required]
         [JsonProperty("name")]

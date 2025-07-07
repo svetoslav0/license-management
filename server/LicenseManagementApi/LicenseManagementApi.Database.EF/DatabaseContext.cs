@@ -29,7 +29,7 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasIndex(x => x.Username)
+                .HasIndex(x => x.Email)
                 .IsUnique();
 
             modelBuilder.Entity<Subscription>()

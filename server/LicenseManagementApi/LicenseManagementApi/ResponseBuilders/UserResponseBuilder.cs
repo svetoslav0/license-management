@@ -15,7 +15,7 @@
                 {
                     Id = u.Id,
                     Name = u.Name,
-                    Username = u.Username,
+                    Email = u.Email,
                     HasLicense = u.HasLicense,
                 })
                 .ToList();

@@ -9,7 +9,7 @@
 
         public List<User> ListUsers();
 
-        public User GetUserBy(string username);
+        public User GetUserBy(string email);
 
         public User GetUserBy(int id);
 

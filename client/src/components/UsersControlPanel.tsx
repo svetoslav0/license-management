@@ -17,14 +17,14 @@ function UsersControlPanel({
             <h1>Users</h1>
             <div className='grid grid-cols-4 font-bold'>
                 <div className='border p-4'>Name</div>
-                <div className='border p-4'>Username</div>
+                <div className='border p-4'>Email</div>
                 <div className='border p-4'>License Status</div>
                 <div className='border p-4'>Actions</div>
             </div>
             {usersList.users.map((user: UserResponseItem, index: number) => (
                 <div className='grid grid-cols-4' key={index}>
                     <div className='border p-4'>{user.name}</div>
-                    <div className='border p-4'>{user.username}</div>
+                    <div className='border p-4'>{user.email}</div>
                     <div className='border p-4'>{user.hasLicense ? 'Assigned' : 'Not Assigned'}</div>
                     <div className='border p-4'>
                         {user.hasLicense

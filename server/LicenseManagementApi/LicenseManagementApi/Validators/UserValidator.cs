@@ -4,6 +4,8 @@
     using LicenseManagementApi.Interfaces;
     using LicenseManagementApi.Models.ParameterModels;
 
+    using System.Net.Mail;
+
     public class UserValidator : IUserValidator
     {
         private readonly IUserUnitOfWork unitOfWork;
@@ -15,22 +17,31 @@
 
         public void ValidateCreateUserParameters(CreateUserParameters parameters)
         {
-            this.ValidateUsername(parameters.Username);
+            this.ValidateEmail(parameters.Email);
             this.ValidateName(parameters.Name);
         }
 
-        private void ValidateUsername(string username)
+        private void ValidateEmail(string email)
         {
-            if (string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(email))
             {
-                throw new BadHttpRequestException("username is required");
+                throw new BadHttpRequestException("email is required");
             }
 
-            User user = this.unitOfWork.GetUserBy(username);
+            User user = this.unitOfWork.GetUserBy(email);
 
             if (user != null)
             {
-                throw new BadHttpRequestException($"Username {username} already exists");
+                throw new BadHttpRequestException($"Email {email} already exists");
+            }
+
+            try
+            {
+                new MailAddress(email);
+            }
+            catch (Exception)
+            {
+                throw new BadHttpRequestException($"Invalid email: {email}");
             }
         }
 
