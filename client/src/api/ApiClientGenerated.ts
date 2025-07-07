@@ -248,18 +248,20 @@ export class Client {
     }
 
     /**
-     * @param username (optional) 
-     * @param name (optional) 
      * @return Get current plan response
      */
-    createUser(username: string | null | undefined, name: string | null | undefined, cancelToken?: CancelToken): Promise<ResponseMessage> {
+    createUser(username: string, name: string, cancelToken?: CancelToken): Promise<ResponseMessage> {
         let url_ = this.baseUrl + "/User";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (username !== null && username !== undefined)
+        if (username === null || username === undefined)
+            throw new Error("The parameter 'username' cannot be null.");
+        else
             content_.append("Username", username.toString());
-        if (name !== null && name !== undefined)
+        if (name === null || name === undefined)
+            throw new Error("The parameter 'name' cannot be null.");
+        else
             content_.append("Name", name.toString());
 
         let options_: AxiosRequestConfig = {
