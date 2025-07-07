@@ -1,50 +1,6 @@
 # Software License Management Module
 
-  
 
-### 📦 Project Description
-
-  
-
-This project is a **Software License Management Module** built as part of a technical assessment. It provides a simple system for managing users and their software licenses based on a subscription plan.
-
-  
-
-The system allows an organization to:
-
-  
-
-- Create and manage users
-
-- Assign or unassign software licenses
-
-- View and switch between subscription plans with different seat limits (Basic, Pro, Enterprise)
-
-  
-
-It enforces key business rules, including:
-
-  
-
-- Users can only have one license at a time
-
-- License assignments cannot exceed the current plan's seat limit
-
-- Licenses cannot be unassigned from users who don’t have one
-
-  
-
->  **Note:**  While SQLite is used in this implementation to simplify testing for reviewers and avoid setup complexity, in a production environment **MySQL** (or another robust RDBMS) would be used for better scalability and performance.
-
-  
-
-The React-based frontend displays user and plan information, and provides controls to assign/unassign licenses and switch plans.
-
-  
-
----
-
-  
 
 ### 🛠️ Tech Stack
 
