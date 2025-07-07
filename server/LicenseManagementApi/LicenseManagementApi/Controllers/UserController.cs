@@ -10,6 +10,8 @@
 
     using Swashbuckle.AspNetCore.Annotations;
 
+    using System.ComponentModel.DataAnnotations;
+
     [ApiController]
     [Route("[controller]")]
     public class UserController : AbstractController
@@ -31,7 +33,7 @@
         [HttpPost]
         [SwaggerOperation(OperationId = "createUser")]
         [SwaggerResponse(StatusCodes.Status200OK, "Get current plan response", typeof(ResponseMessage))]
-        public async Task<IActionResult> Create([FromForm] CreateUserParameters parameters)
+        public async Task<IActionResult> Create([FromForm, Required] CreateUserParameters parameters)
         {
             this.validator.ValidateCreateUserParameters(parameters);
 

@@ -2,11 +2,15 @@
 {
     using Newtonsoft.Json;
 
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateUserParameters
     {
+        [Required]
         [JsonProperty("username")]
         public string Username { get; set; }
 
+        [Required]
         [JsonProperty("name")]
         public string Name { get; set; }
     }
